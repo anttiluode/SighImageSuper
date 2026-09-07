@@ -1,0 +1,25 @@
+{
+  "gate": "precision_floor_diagnostic",
+  "grid": [64, 64],
+  "operator": "A = 0.5 I (spectral shape must remain unchanged in exact arithmetic)",
+  "initial_real_cosine_modes": 5,
+  "ideal_fourier_support_bins": 10,
+  "float16_min_positive_subnormal": 5.960464477539063e-08,
+  "relative_power_threshold": 0.001,
+  "selected_float16_steps": [
+    {"step": 22, "max_abs": 2.384185791015625e-07, "std": 8.211435721075354e-08, "nonzero_values": 2637, "min_positive_abs": 5.960464477539063e-08, "spectral_bins_above_relative_threshold": 25, "quantized_levels": 9},
+    {"step": 23, "max_abs": 1.1920928955078125e-07, "std": 3.973140836431221e-08, "nonzero_values": 1415, "min_positive_abs": 5.960464477539063e-08, "spectral_bins_above_relative_threshold": 251, "quantized_levels": 5},
+    {"step": 24, "max_abs": 5.960464477539063e-08, "std": 1.0820197882259483e-08, "nonzero_values": 135, "min_positive_abs": 5.960464477539063e-08, "spectral_bins_above_relative_threshold": 2213, "quantized_levels": 3},
+    {"step": 25, "max_abs": 0.0, "std": 0.0, "nonzero_values": 0, "min_positive_abs": 0.0, "spectral_bins_above_relative_threshold": 0, "quantized_levels": 1}
+  ],
+  "float32_step_24": {"max_abs": 5.960464477539063e-08, "std": 1.9933029247949324e-08, "nonzero_values": 4096, "min_positive_abs": 3.6149052501377454e-11, "spectral_bins_above_relative_threshold": 10, "quantized_levels": 4095},
+  "float64_step_24": {"max_abs": 5.960464477539063e-08, "std": 1.9933029245001285e-08, "nonzero_values": 4096, "min_positive_abs": 3.61490524219362e-11, "spectral_bins_above_relative_threshold": 10, "quantized_levels": 4096},
+  "key_receipt": {
+    "float16_step_23_max_abs": 1.1920928955078125e-07,
+    "float16_step_24_max_abs": 5.960464477539063e-08,
+    "float16_step_24_spectral_support": 2213,
+    "float64_step_24_spectral_support": 10,
+    "float16_step_25_nonzero_values": 0
+  },
+  "interpretation": "With A=0.5I, exact arithmetic can only scale the field, so its ten-bin Fourier support cannot broaden. Float64 and float32 preserve that support while the amplitude keeps falling. Float16 storage reaches the 5.9604645e-8 subnormal quantum; rounding turns the smooth five-mode field into sparse quantized patches and explodes the relative Fourier support before the state vanishes. The late 'last gasp' is therefore a numerical Q16 nonlinearity, not recovered physical/image information."
+}
