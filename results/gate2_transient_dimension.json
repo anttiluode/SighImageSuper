@@ -1,0 +1,82 @@
+{
+  "grid": [
+    64,
+    64
+  ],
+  "state_dimension": 4096,
+  "max_gain": 1.0,
+  "min_gain": 0.005,
+  "steps": [
+    {
+      "step": 0,
+      "stable_rank": 4096.0,
+      "effective_singular_modes": 4096.0,
+      "directions_above_0.001": 4096,
+      "directions_above_1e-06": 4096
+    },
+    {
+      "step": 1,
+      "stable_rank": 153.89786336678202,
+      "effective_singular_modes": 462.1534974179848,
+      "directions_above_0.001": 4096,
+      "directions_above_1e-06": 4096
+    },
+    {
+      "step": 2,
+      "stable_rank": 51.248237828306905,
+      "effective_singular_modes": 163.853687637219,
+      "directions_above_0.001": 2371,
+      "directions_above_1e-06": 4096
+    },
+    {
+      "step": 4,
+      "stable_rank": 16.028823753552984,
+      "effective_singular_modes": 52.1334994401285,
+      "directions_above_0.001": 717,
+      "directions_above_1e-06": 2371
+    },
+    {
+      "step": 8,
+      "stable_rank": 4.92817849715847,
+      "effective_singular_modes": 13.215783655658178,
+      "directions_above_0.001": 277,
+      "directions_above_1e-06": 717
+    },
+    {
+      "step": 16,
+      "stable_rank": 1.8377225242679387,
+      "effective_singular_modes": 3.068090959447932,
+      "directions_above_0.001": 85,
+      "directions_above_1e-06": 277
+    },
+    {
+      "step": 32,
+      "stable_rank": 1.1007574810654954,
+      "effective_singular_modes": 1.20882621880522,
+      "directions_above_0.001": 25,
+      "directions_above_1e-06": 85
+    },
+    {
+      "step": 64,
+      "stable_rank": 1.0023500593155916,
+      "effective_singular_modes": 1.0047042562764135,
+      "directions_above_0.001": 5,
+      "directions_above_1e-06": 25
+    },
+    {
+      "step": 128,
+      "stable_rank": 1.0000013786480428,
+      "effective_singular_modes": 1.0000027572975112,
+      "directions_above_0.001": 1,
+      "directions_above_1e-06": 5
+    },
+    {
+      "step": 256,
+      "stable_rank": 1.0000000000004752,
+      "effective_singular_modes": 1.0000000000009504,
+      "directions_above_0.001": 1,
+      "directions_above_1e-06": 1
+    }
+  ],
+  "interpretation": "The algebraic map remains full-rank because every filter gain is positive, but its usable/transient dimensionality collapses rapidly. The pure checkerboard is the one-dimensional endpoint; the richer cloud is the transient regime in which many operator directions are still distinguishable above finite precision or noise."
+}
