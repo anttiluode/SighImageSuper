@@ -1,0 +1,15 @@
+{
+  "grid": [64, 64],
+  "steps": 1024,
+  "seed": 7,
+  "max_abs_gain": 1.0,
+  "num_max_gain_bins": 1,
+  "max_gain_bins_array_indices": [[32, 32]],
+  "next_largest_abs_gain": 0.943529411764706,
+  "predicted_projection_std": 9.712109833191415e-06,
+  "observed_std": 9.712109833191486e-06,
+  "predicted_checkerboard_abs_cosine": 0.999999999999999,
+  "observed_checkerboard_abs_cosine": 0.9999999999999991,
+  "relative_error_vs_analytical_limit": 3.697610555429265e-15,
+  "interpretation": "The high-pass loop preserves exactly the joint Nyquist checkerboard mode."
+}
