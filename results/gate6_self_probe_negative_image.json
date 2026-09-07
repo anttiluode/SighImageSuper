@@ -1,0 +1,56 @@
+{
+  "gate": "self_probe_negative_image",
+  "seed": 61,
+  "self_only_queries": 20,
+  "max_reversal_episodes": 10,
+  "probe": [-0.0, 0.7071067811865476, -0.7071067811865477],
+  "initial_AB_memory_score": 0.001945106846782419,
+  "self_only": {
+    "always_on": {
+      "material_drift_norm": 0.19436972840632977,
+      "memory_score_after_queries": 0.005636994722891131
+    },
+    "global_freeze": {
+      "material_drift_norm": 0.0,
+      "memory_score_after_queries": 0.001945106846782419
+    },
+    "negative_image": {
+      "material_drift_norm": 0.0,
+      "memory_score_after_queries": 0.001945106846782419
+    }
+  },
+  "overlapping_external_BA": {
+    "always_on": {
+      "distance_from_external_only_reference": 0.009670869902130742,
+      "memory_score_after_one_overlap": 0.0012647502162839825
+    },
+    "global_freeze": {
+      "distance_from_external_only_reference": 0.06947306315794045,
+      "memory_score_after_one_overlap": 0.001945106846782419
+    },
+    "negative_image": {
+      "distance_from_external_only_reference": 5.551115123125783e-17,
+      "memory_score_after_one_overlap": 0.0015407101785160908
+    }
+  },
+  "reversal_during_queries": {
+    "always_on": {
+      "first_episode_scored_as_BA": 3,
+      "scores": [0.0012647502162839825, 0.0003295877072806796, -0.0011093456897110048],
+      "final_material_drift_norm": 0.3193123981859133
+    },
+    "global_freeze": {
+      "first_episode_scored_as_BA": null,
+      "scores": [0.001945106846782419, 0.001945106846782419, 0.001945106846782419, 0.001945106846782419, 0.001945106846782419, 0.001945106846782419, 0.001945106846782419, 0.001945106846782419, 0.001945106846782419, 0.001945106846782419],
+      "final_material_drift_norm": 0.0
+    },
+    "negative_image": {
+      "first_episode_scored_as_BA": 3,
+      "scores": [0.0015407101785160908, 0.000897242005540535, -0.0002782603672362616],
+      "final_material_drift_norm": 0.3740066784305908
+    }
+  },
+  "negative_image_vs_external_only_after_3_episodes_norm": 1.1102230246251565e-16,
+  "temporary_predictor_state_is_reset_each_episode": true,
+  "interpretation": "Always-on plasticity lets the act of questioning reshape the stored material. Global freezing protects the memory but also blocks new external evidence that arrives during the question. In this linear isolator, subtracting the predicted self-generated probe response makes self-only interrogation produce zero material drift while an overlapping external BA event updates the material exactly as it would without the probe. This is an exact negative-image/corollary-discharge control, not yet a learned biological mechanism."
+}
