@@ -1,0 +1,65 @@
+{
+  "gate": "learned_local_echo_predictor",
+  "seed": 73,
+  "nodes": 3,
+  "horizon": 8,
+  "predictor_weights": 24,
+  "temporary_predicted_state_values": 3,
+  "outgoing_command_copy_values": 1,
+  "local_sensor_noise_std": 0.001,
+  "calibration_episodes": 30,
+  "calibration_lr": 0.2,
+  "calibration_error_norm": {
+    "after_1": 0.21754018634324207,
+    "after_5": 0.08951819056054236,
+    "after_10": 0.028820970379984753,
+    "after_20": 0.0036573493519201517,
+    "after_30": 0.0013134478311934204
+  },
+  "self_only_100_queries": {
+    "no_predictor_material_drift": 0.03283605963707349,
+    "learned_predictor_material_drift": 7.503274172916218e-08,
+    "learned_predictor_final_error": 0.0017010274278921934,
+    "drift_reduction_factor": 437623.0813422542
+  },
+  "valid_AB_to_BA_material_change_with_stale_echo_model": {
+    "frozen": {
+      "predictor_lr": 0.0,
+      "checkpoints": [
+        {"episode": 1, "material_drift_from_valid_BA": 9.995642134202902e-05, "local_predictor_error": 0.08849597215751395},
+        {"episode": 5, "material_drift_from_valid_BA": 0.000499951453203847, "local_predictor_error": 0.08851915275823681},
+        {"episode": 20, "material_drift_from_valid_BA": 0.0020022306924154265, "local_predictor_error": 0.08859981463365842},
+        {"episode": 50, "material_drift_from_valid_BA": 0.005016314693861546, "local_predictor_error": 0.08873104348000041}
+      ],
+      "final_material_drift_from_valid_BA": 0.005016314693861546,
+      "final_local_predictor_error": 0.08873104348000041
+    },
+    "slow": {
+      "predictor_lr": 0.02,
+      "checkpoints": [
+        {"episode": 1, "material_drift_from_valid_BA": 9.995642134202902e-05, "local_predictor_error": 0.08671040382903192},
+        {"episode": 5, "material_drift_from_valid_BA": 0.00046192746619690215, "local_predictor_error": 0.08005069147749794},
+        {"episode": 20, "material_drift_from_valid_BA": 0.0014024101810833555, "local_predictor_error": 0.05918118478032115},
+        {"episode": 50, "material_drift_from_valid_BA": 0.002195577303442763, "local_predictor_error": 0.03221917465200612}
+      ],
+      "final_material_drift_from_valid_BA": 0.002195577303442763,
+      "final_local_predictor_error": 0.03221917465200612
+    },
+    "fast": {
+      "predictor_lr": 0.6,
+      "checkpoints": [
+        {"episode": 1, "material_drift_from_valid_BA": 9.995642134202902e-05, "local_predictor_error": 0.03501540582814501},
+        {"episode": 5, "material_drift_from_valid_BA": 0.00011883166527389113, "local_predictor_error": 0.003696324755300888},
+        {"episode": 20, "material_drift_from_valid_BA": 0.00011887703128506001, "local_predictor_error": 0.0025248255082938667},
+        {"episode": 50, "material_drift_from_valid_BA": 0.00011901318902586764, "local_predictor_error": 0.002900512001618435}
+      ],
+      "final_material_drift_from_valid_BA": 0.00011901318902586764,
+      "final_local_predictor_error": 0.002900512001618435
+    }
+  },
+  "correlated_prediction_error_attack_100_queries": {
+    "perfect_scale_1_material_drift": 0.0,
+    "scale_0.90_material_drift": 0.0002863726722063343
+  },
+  "interpretation": "A counted 24-weight local impulse-response predictor can learn the self-generated echo from randomized outgoing-command copies without reading the material matrix. Once learned, it suppresses self-query writing by orders of magnitude. After a valid material change, a fast echo predictor re-tracks the new response before much false structural writing accumulates, whereas a frozen/slow predictor corrupts more. However, persistent temporally correlated prediction error still writes the material even when no external event occurred. Exact Gate-6 cancellation was therefore an ideal benchmark, not a solved mechanism."
+}
