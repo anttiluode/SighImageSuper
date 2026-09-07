@@ -126,7 +126,74 @@ K_k = C A^k B
 
 where `B` says where an event enters, `A` says how the substrate evolves, and `C` says what the bounded observer can actually read.
 
-That equation ties the Sigh loop much more directly to the older work than the checkerboard alone does.
+## Three physical ways for history to remain available
+
+The last two gates break an accidental assumption in the original eigenmode story. A past event does not have to survive as one slowly decaying state component.
+
+There are at least three clean mechanisms:
+
+| carrier of history | what remains? | minimal example |
+|---|---|---|
+| **lingering trace** | activity itself | Sigh spectral modes with different decay times |
+| **travelling trace** | activity moves through successive states | directed delay line / non-normal transport |
+| **changed material** | the operator is altered by experience | teach -> silence -> identical probe |
+
+These mechanisms can coexist in one physical substrate.
+
+### Gate 3 — teach, silence, question
+
+`gate3_teach_silence_question.py` creates two initially identical three-node materials. One experiences `A -> B`; the other experiences `B -> A`. A minimal temporal-order rule strengthens the directed connection from the previous cue to the current cue.
+
+Then every fast activity variable and eligibility trace is set to exactly zero. Plasticity is frozen. Both materials receive the **same neutral probe**.
+
+The probe responses differ:
+
+```text
+AB material terminal response: [0.173575, 0.234325]
+BA material terminal response: [0.234325, 0.173575]
+```
+
+With cue-amplitude jitter and noisy terminal sensors, the fixed sign readout recovers the earlier sequence with `0.9719` accuracy over 10,000 trials. Freezing plasticity during teaching gives `0.4949`; restoring virgin material before the probe gives `0.5037`.
+
+The especially useful control is mathematical: the learned `AB` and `BA` operators have the **same eigenvalues** to numerical precision (`6.7e-16` maximum set difference), and both are stable with spectral radius about `0.705`.
+
+So the remembered distinction is not "one operator got a slower eigenmode."
+
+> **Experience changed which route the same question takes through the material.**
+
+That is a direct toy realization of silent structural memory:
+
+```text
+experience
+   ↓
+changes A(theta)
+   ↓
+fast state erased
+   ↓
+same probe p
+   ↓
+C A(theta)^k B p
+   ↓
+different answer
+```
+
+### Gate 4 — memory with every eigenvalue equal to zero
+
+`gate4_travelling_trace.py` pushes the correction further. It uses an eight-cell directed delay line:
+
+```text
+x_(t+1) = S x_t + B u_t
+```
+
+`S` shifts the current state one cell downstream. Every eigenvalue of `S` is exactly zero and `S^8 = 0`.
+
+Yet after eight sequential inputs, the present state contains all eight. A **single sensor on the final cell**, observed over the next eight silent steps, recovers the entire input history exactly. The controllability rank is `8/8`; the observability rank from that one terminal sensor over time is also `8/8`. After eight silent steps the state is exactly zero.
+
+This is the important counterexample:
+
+> **history can remain recoverable by moving through state space even when no persistent eigenmode exists at all.**
+
+So eigenvalues describe one carrier of memory, not memory itself.
 
 ## Why this belongs with the earlier repos
 
@@ -134,88 +201,82 @@ The recurring line has been:
 
 > **structure compiles an operator.**
 
-SighImageSuper adds two consequences:
+SighImageSuper now adds three consequences:
 
 > **the operator compiles a hierarchy of persistence.**
 >
-> **a bounded readout turns that persistence hierarchy into a hierarchy of usable memory.**
+> **transport can preserve temporal order without persistent eigenmodes.**
+>
+> **experience can move memory from fast state into the operator itself.**
+
+And the GeometricNeuron lesson adds the final qualifier:
+
+> **none of that is usable memory unless a bounded observer can recover the distinction.**
 
 ### Operaattori / GeometricNeuron
 
-Morphology determines a cable operator. A perturbation can be decomposed into spatial modes with different decay times. Fast components disappear first; slow modes dominate the late state. Geometry therefore chooses not only where a signal travels but which components of history remain available later.
+Morphology determines a cable operator. A perturbation can be decomposed into spatial modes with different decay times, but dendritic geometry also routes signals through different paths. The `C A^k B` view therefore matters more than eigenvalues alone: where a signal enters and where it is read can determine what history is available.
 
-The `C A^k B` view also restores the GeometricNeuron lesson: a direction can physically survive and still be useless if the observer cannot access it.
+This gives a sharper experiment for the morphology compiler. Instead of asking only which cable modes are slow, ask whether different input histories remain distinguishable at selected compartments or at the soma after controlled delays.
 
 ### Takens / history state
 
-The older delay-bank intuition does not require literal digital taps. A physical substrate can expose history through a bank of transient modes with different lifetimes. Repeated readout can exploit those changing coordinates while they remain distinguishable.
+The old delay-bank intuition now has two physical realizations in the same framework:
 
-This repo should not invoke Takens as a magic guarantee: once two histories have collapsed into the same observable state, no delay theorem resurrects the lost difference. The useful quantity here is first observability/distinguishability under finite noise and only then nonlinear reconstruction.
+```text
+decaying modal coordinates       travelling coordinates
+phi_i lambda_i^t                 B, AB, A^2B, ...
+```
+
+Repeated measurements can exploit either while the histories remain distinguishable. This repo should not invoke Takens as a magic guarantee: once two histories have collapsed into the same observable state, no delay theorem resurrects the lost difference.
 
 ### JelloBrain / ThinkingJello
 
-JelloBrain made the slow material into the operator: signals make roads and roads alter later signals. The recursive image loop is the frozen-operator control case. The more interesting next case couples state and operator:
+JelloBrain made the slow material into the operator: signals make roads and roads alter later signals. Gate 3 is the smallest possible isolator of that idea. The visible activity is gone; the next signal still takes a different road because experience changed the material.
 
-```text
-x_(t+1)     = A(theta_t) x_t + input_t
-theta_(t+1) = G(theta_t, x_t, consequence_t)
-```
+That also exposes the next wall from Jello more clearly. If asking the memory causes plasticity, **retrieval itself can rewrite the thing being retrieved**.
 
-Now a mode that survives longer can drive more plasticity, and that plasticity can make the same mode survive even longer. That is a route to **self-canalization**: a rich-get-richer loop between state and structure.
-
-JelloBrain's failure-gated plasticity result suggests the counter-mechanism: **a stable thing should stop teaching itself merely because it is stable.**
-
-The new Sigh view makes the danger sharper. Plasticity that merely reinforces whatever is currently longest-lived may improve persistence while destroying the transient dimensionality needed to distinguish histories.
+JelloBrain's failure-gated plasticity result therefore has a precise new role: the stable thing should not keep teaching itself merely because the probe reactivates it. ThinkingJello's prediction/corollary-discharge thread suggests another possible control: distinguish expected self-generated probe consequences from externally informative mismatch before allowing structural change.
 
 ### 368 / fast forgetting + retained memory
 
-The same spectrum gives a physical version of fast/slow memory. Modes far inside the unit circle forget quickly. Modes near the unit circle act as retained traces. A separate memory database is not the only way a system can retain history; persistence can be embedded in the dynamics of the same substrate being read.
+The three carriers separate several things that a conventional memory architecture often stores in one explicit object.
 
-But Gate 2 adds the missing cost: retaining one dominant mode while every other distinction dies is not rich memory. A useful memory substrate must preserve the distinctions that future behavior actually needs.
+- fast forgetting can live in rapidly decaying state;
+- recent sequence can live in directed transient transport;
+- retained experience can live in changed operator geometry.
 
-Fresh-data `alpha` is then not a cosmetic control. For linear `A`, the forced fixed point is
-
-```text
-x* = alpha [I - (1-alpha) A]^-1 x_original
-```
-
-when the inverse exists. At `alpha=0`, recursive inheritance selects the operator's persistent modes. At `alpha>0`, repeated replay of the original state continually re-enters and the result is a weighted mixture rather than pure self-consumption.
-
-For a true grounding/model-collapse experiment, future gates should replace repeated replay of one fixed original with genuinely new external observations.
+But the 368 lesson still applies: persistence is not free and retention is not justified merely because something can be stored. A useful material must preserve distinctions that later behavior actually reuses.
 
 ### AI model collapse
 
-The current Sigh loop is **signal collapse under a fixed operator**, not full model collapse: the operator itself is not being retrained.
+The current image loop is **signal collapse under a fixed operator**, not full model collapse. The closer AI analogue begins when outputs also alter the operator or the future data distribution.
 
-The closer AI analogue begins when outputs alter the operator that produces future outputs, or when training data becomes increasingly self-generated:
+Gate 3 makes the danger more concrete. Repeated self-generated activity can change `A(theta)` so that future probes increasingly follow routes carved by earlier probes. A system may therefore lose diversity in two places at once:
 
 ```text
-state -> model output -> training signal -> changed model -> next output
+state distribution narrows
+        +
+operator becomes biased toward the states it already regenerates
 ```
 
-Then a small representational preference can become self-reinforcing. The danger is not only loss of amplitude. It is loss of **distinguishable directions**: many possible histories/inputs becoming mapped into an increasingly narrow family of states.
-
-Sigh gives us an unusually visible baseline for that process because we can first understand the fixed operator exactly and only then allow the operator to move.
+The next experiment should measure that directly rather than call every recursive image effect "model collapse."
 
 ## Dendrite question
 
-A passive dendrite is not literally this FFT filter, but the mathematical family resemblance is real. Over a finite time step its cable dynamics act like an evolution operator. The voltage pattern can be decomposed into modes with different time constants; late activity is biased toward the modes that morphology and boundary conditions preserve longest.
+A real dendrite is not this three-node sheet, the FFT filter, or the eight-cell delay line. But those gates now give three experimentally separable questions to ask of a dendritic morphology:
 
-The Nyquist demodulation gives a second useful perspective: what looked like high-frequency checkerboard selection becomes smooth envelope relaxation after a basis change. So the visual resemblance to a spreading/fading dendritic field is not evidence of identical biology, but it is less mysterious than it first appeared: both can be read as transient mixtures relaxing toward a much smaller set of slow modes.
+1. **Lingering:** which perturbation components decay slowly?
+2. **Travelling:** which histories remain distinguishable because signals occupy different paths/locations at different delays?
+3. **Structural:** can prior activity alter conductances so that the same later probe produces a history-dependent response after fast activity is gone?
 
-The safe hypothesis is therefore not:
+Real neurons have many mechanisms that could contribute to those broad categories, but this repository does not identify a biological implementation.
 
-> the neuron stops because it found its eigenmode.
+The useful claim is narrower:
 
-It is:
+> **a neuron-sized physical system does not need one object called memory; history can be distributed across transient state, directed propagation, and slowly changed response geometry.**
 
-> **a dendritic tree may erase most components of a perturbation faster than others, leaving later readout dominated by a morphology-selected low-dimensional set of modes.**
-
-And the stronger computational question is:
-
-> **does dendritic geometry keep behaviorally useful histories distinguishable for the delays at which downstream machinery needs them?**
-
-Active conductances, NMDA, inhibition and plasticity make the operator state-dependent. At that point ordinary eigenvectors may no longer be enough; finite-time singular vectors, Jacobians, Lyapunov directions and attractors become the right objects.
+That is now a testable operator statement rather than a metaphor.
 
 ## Gates
 
@@ -243,28 +304,50 @@ Measure the exact singular spectrum of `A^t` and how quickly the 4096-dimensiona
 python gate2_transient_dimension.py
 ```
 
-### Gate 3 — memory/distinguishability
+### Gate 3 — teach, silence, question
 
-Inject matched histories (for example `A then B` versus `B then A`) and test how long a bounded noisy readout can still distinguish them. Compare against simple decaying-trace baselines at matched state/readout cost.
+Write temporal order into material, erase all fast state, ask both materials the same neutral question, and recover the earlier history only through the changed operator.
 
-### Gate 4 — moving operator
+```bash
+python gate3_teach_silence_question.py
+```
 
-Let the operator adapt slowly from recursive state. Compare reinforcement of whatever survives, anti-collapse pressure, and failure/task-gated plasticity. The key metric is not simply persistence: does adaptation preserve useful transient distinctions?
+### Gate 4 — travelling trace
 
-### Gate 5 — dendritic operator
+Demonstrate exact finite history retention with an eight-cell nilpotent directed operator whose eigenvalues are all zero.
 
-Use an Operaattori morphology as the operator. Excite many compartment patterns, propagate them through passive cable dynamics, and measure finite-time singular spectrum, effective rank and readout distinguishability with delay. Shuffle morphology as the attacker.
+```bash
+python gate4_travelling_trace.py
+```
 
-### Gate 6 — learned AI operator
+### Gate 5 — interrogation without corruption
 
-Replace the image FFT operator with a denoiser, autoencoder, recurrent hidden-state update, residual-block Jacobian, or other dimension-preserving learned map. Feed its output back and measure fixed points, cycles, transient amplification, distinguishability loss and mode collapse.
+Teach a structural memory, then probe it repeatedly **with plasticity enabled**. Compare:
 
-For non-normal operators, do not assume the important direction is an eigenvector. Measure singular-value growth and transient amplification too.
+```text
+always-plastic
+read-frozen
+failure/mismatch-gated plasticity
+```
+
+Measure three quantities separately: retained history accuracy, probes required for retrieval, and structural drift caused by retrieval itself.
+
+This is the direct Sigh/Jello/ThinkingJello wall: **can the same substrate be read without teaching itself the consequences of being read?**
+
+### Gate 6 — dendritic operator
+
+Use an Operaattori morphology as the operator. Run the three memory questions above with bounded compartment/soma readouts. Morphology shuffle and port/address shuffle are the attackers.
+
+### Gate 7 — learned AI operator
+
+Replace the toy operator with a denoiser, autoencoder, recurrent hidden-state update, residual-block Jacobian, or other dimension-preserving learned map. Measure transient distinguishability, structural adaptation, retrieval interference and collapse.
+
+For non-normal operators, do not infer memory from eigenvalues alone. Measure controllability/observability, singular-value growth and finite-time transient amplification too.
 
 ## Claim boundary
 
-Power iteration, modulation/demodulation, eigenmodes, cable modes, observability, dynamical systems, model collapse and continual-learning memory are established subjects. This repository does not claim to have invented them or to have discovered a new biological mechanism.
+Power iteration, modulation/demodulation, eigenmodes, non-normal dynamics, controllability/observability, synaptic/structural memory, dynamical systems, model collapse and continual learning are established subjects. This repository does not claim to have invented them or to have discovered how neurons implement working memory.
 
 The useful research program is narrower:
 
-> **build one visual instrument that asks the same operational question of image filters, dendrites and learned systems: when a state is repeatedly transformed by the structure that contains it, which differences between possible histories remain available, for how long, to which observer, and what happens when those surviving differences are allowed to rewrite the structure?**
+> **build one visual/operator laboratory that asks the same operational question of image filters, directed materials, dendrites and learned systems: which differences between possible histories remain recoverable, where are they physically carried, which probe can retrieve them, and does retrieval itself alter what will be remembered next?**
