@@ -1,0 +1,26 @@
+{
+  "gate": "orthogonal_private_dither_identification",
+  "seed": 97,
+  "nodes": 3,
+  "horizon": 8,
+  "epsilon": 0.2,
+  "external_amplitude": 0.25,
+  "balanced_design": [
+    {"coarse_action": 1, "private_dither": 1},
+    {"coarse_action": 1, "private_dither": -1},
+    {"coarse_action": -1, "private_dither": 1},
+    {"coarse_action": -1, "private_dither": -1}
+  ],
+  "external_correlated_with_coarse_action_only": {
+    "self_template_error_norm": 1.1704644138682474e-16,
+    "self_only_100_query_material_drift": 0.0
+  },
+  "attacker_external_also_correlated_with_private_dither": {
+    "kappa": 0.1,
+    "self_template_error_norm": 0.09685159334332749,
+    "predicted_error_norm_kappa_over_epsilon_times_E": 0.09685159334332737,
+    "identity_residual_norm": 1.625649714902894e-16,
+    "self_only_100_query_material_drift": 0.010880467865079638
+  },
+  "interpretation": "A balanced private dither creates causal leverage that coarse command correlation lacks. When the external disturbance tracks the coarse action but not the hidden dither, the self echo is recovered to machine precision despite perfect action/external correlation. If the external world also responds to the dither, the estimate is biased by exactly (kappa/epsilon) times the external response and false structural writing returns. Active intervention can therefore break some confounds, but no probe can separate causes that respond identically to every intervention available to the observer."
+}
