@@ -1,0 +1,17 @@
+{
+  "gate": "travelling_trace",
+  "cells": 8,
+  "inputs_oldest_to_newest": [0.25, -0.8, 0.4, 1.1, -0.35, 0.6, -1.2, 0.9],
+  "loaded_state_newest_to_oldest": [0.9, -1.2, 0.6, -0.35, 1.1, 0.4, -0.8, 0.25],
+  "single_terminal_sensor_recovered_oldest_to_newest": [0.25, -0.8, 0.4, 1.1, -0.35, 0.6, -1.2, 0.9],
+  "eigenvalues": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+  "spectral_radius": 0.0,
+  "nilpotent_power": 8,
+  "norm_S_power_N": 0.0,
+  "normality_defect_frobenius": 1.4142135623730951,
+  "controllability_rank": 8,
+  "observability_rank_from_one_terminal_sensor_over_time": 8,
+  "max_recovery_error": 0.0,
+  "final_state_norm_after_N_silent_steps": 0.0,
+  "interpretation": "The system stores and later emits eight past inputs exactly even though every eigenvalue of the autonomous update is zero. History is carried by directed transport through successive states; after eight silent steps the trace is exactly gone. Eigenvalue lifetime is therefore only one memory mechanism, not a complete theory of dynamical memory."
+}
