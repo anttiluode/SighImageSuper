@@ -1,0 +1,44 @@
+{
+  "gate": "teach_silence_question",
+  "seed": 23,
+  "trials": 10000,
+  "eta": 0.18,
+  "probe_steps": 3,
+  "readout_noise_std": 0.02,
+  "fast_state_after_silence_AB": [0.0, 0.0, 0.0],
+  "fast_state_after_silence_BA": [0.0, 0.0, 0.0],
+  "eligibility_after_silence_AB": [0.0, 0.0, 0.0],
+  "eligibility_after_silence_BA": [0.0, 0.0, 0.0],
+  "operator_AB": [
+    [0.45, 0.08, 0.08],
+    [0.25, 0.45, 0.03],
+    [0.25, 0.21, 0.45]
+  ],
+  "operator_BA": [
+    [0.45, 0.08, 0.08],
+    [0.25, 0.45, 0.21],
+    [0.25, 0.03, 0.45]
+  ],
+  "eigenvalues_AB_real_imag": [
+    [0.32241563362433583, -0.05033201413885629],
+    [0.32241563362433583, 0.05033201413885629],
+    [0.7051687327513283, 0.0]
+  ],
+  "eigenvalues_BA_real_imag": [
+    [0.3224156336243355, -0.05033201413885638],
+    [0.3224156336243355, 0.05033201413885638],
+    [0.705168732751329, 0.0]
+  ],
+  "eigenvalue_set_max_difference": 6.661338147750939e-16,
+  "spectral_radius": 0.7051687327513283,
+  "neutral_probe_terminal_response_AB": [0.173575, 0.234325],
+  "neutral_probe_terminal_response_BA": [0.234325, 0.17357499999999998],
+  "neutral_probe_full_state_AB": [0.14992500000000003, 0.173575, 0.234325],
+  "neutral_probe_full_state_BA": [0.14992500000000003, 0.234325, 0.17357499999999998],
+  "trained_material_accuracy": 0.9719,
+  "frozen_plasticity_control_accuracy": 0.4949,
+  "restored_virgin_material_control_accuracy": 0.5037,
+  "mean_signed_probe_margin": 0.060888637703948936,
+  "std_signed_probe_margin": 0.03206669875892827,
+  "interpretation": "After all fast activity and eligibility are erased, an identical neutral probe recovers AB versus BA from the learned material. The mirror learned operators have the same eigenvalues, so the remembered distinction lives in input/operator/readout geometry, not in a changed eigenvalue spectrum."
+}
