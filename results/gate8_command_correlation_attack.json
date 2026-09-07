@@ -1,0 +1,29 @@
+{
+  "gate": "command_correlation_attack",
+  "seed": 83,
+  "nodes": 3,
+  "horizon": 8,
+  "predictor_weights": 24,
+  "training_episodes": 5000,
+  "predictor_lr": "running_mean_1_over_n",
+  "external_amplitude": 0.25,
+  "external_time": 2,
+  "external_port": 1,
+  "learned_template_error_norm": {
+    "external_independent_of_command": 0.00038740637337331536,
+    "external_perfectly_correlated_with_command": 0.1937031866866547
+  },
+  "pure_self_100_query_material_drift": {
+    "predictor_trained_with_independent_external": 1.787213693785379e-07,
+    "predictor_trained_with_correlated_external": 0.04213984145488657
+  },
+  "residual_norm_on_command_correlated_external_event": {
+    "predictor_trained_with_independent_external": 0.19409059306002804,
+    "predictor_trained_with_correlated_external": 0.0
+  },
+  "residual_norm_on_pure_self_probe": {
+    "predictor_trained_with_independent_external": 0.00038740637337331536,
+    "predictor_trained_with_correlated_external": 0.1937031866866547
+  },
+  "interpretation": "Randomized +/- self-probes let a local correlation learner recover the self echo when external disturbances are independent of the command. When the external event is perfectly command-correlated, the same estimator absorbs that external response into its negative image. The corrupted predictor then produces large false residuals on pure self queries and nearly cancels the genuinely external correlated event. Self/world separation therefore needs assumptions or extra causal interventions beyond command correlation alone."
+}
