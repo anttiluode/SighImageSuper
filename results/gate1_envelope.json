@@ -1,0 +1,74 @@
+{
+  "grid": [
+    64,
+    64
+  ],
+  "seed": 13,
+  "operator": "exact SighImageSuper high-pass preset",
+  "max_gain": 1.0,
+  "max_gain_bins_array_indices": [
+    [
+      32,
+      32
+    ]
+  ],
+  "checkerboard_demodulation_identity_max_error": 0.0,
+  "demodulated_unit_gain_bin": [
+    0,
+    0
+  ],
+  "steps": [
+    {
+      "step": 0,
+      "raw_std": 1.0060625054753618,
+      "spectral_entropy": 7.89129524802261,
+      "effective_modes": 2037.876465905749,
+      "dc_power_fraction": 0.0003811587750482401
+    },
+    {
+      "step": 1,
+      "raw_std": 0.1940105570358647,
+      "spectral_entropy": 6.250237329604714,
+      "effective_modes": 277.05623024148974,
+      "dc_power_fraction": 0.010256558132892769
+    },
+    {
+      "step": 4,
+      "raw_std": 0.058905492839159995,
+      "spectral_entropy": 4.309584660284393,
+      "effective_modes": 37.2245070840068,
+      "dc_power_fraction": 0.11126049372317748
+    },
+    {
+      "step": 16,
+      "raw_std": 0.02170658269757916,
+      "spectral_entropy": 0.9236058557716866,
+      "effective_modes": 1.4792870328729912,
+      "dc_power_fraction": 0.8193503740836597
+    },
+    {
+      "step": 64,
+      "raw_std": 0.019652994524637098,
+      "spectral_entropy": 0.004590083550287276,
+      "effective_modes": 1.0009439371218147,
+      "dc_power_fraction": 0.9995283215427657
+    },
+    {
+      "step": 256,
+      "raw_std": 0.01964835903088922,
+      "spectral_entropy": 3.055161940244311e-12,
+      "effective_modes": 1.000000000000191,
+      "dc_power_fraction": 0.9999999999999045
+    },
+    {
+      "step": 1024,
+      "raw_std": 0.019648359030888282,
+      "spectral_entropy": -0.0,
+      "effective_modes": 1.0,
+      "dc_power_fraction": 1.0
+    }
+  ],
+  "final_dc_power_fraction": 1.0,
+  "final_effective_modes": 1.0,
+  "interpretation": "The pre-checkerboard cloud is a Nyquist-carrier envelope. Multiplying by (-1)^(i+j) shifts the Nyquist corner to DC exactly; recursive high-pass selection then removes the envelope's non-DC components until the envelope is constant, which remodulates to a pure checkerboard."
+}
